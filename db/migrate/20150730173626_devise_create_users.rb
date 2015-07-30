@@ -33,7 +33,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :email
-      t.digest :password
       t.string :google_uid
       t.string :linkedin_uid
       t.string :facebook_uid
