@@ -11,28 +11,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730174944) do
+ActiveRecord::Schema.define(version: 20150731081016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "opinions", force: :cascade do |t|
-    t.boolean  "answer"
+  create_table "answered_questions", force: :cascade do |t|
+    t.integer  "response_id"
+    t.integer  "answer_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "answered_questions", ["answer_id"], name: "index_answered_questions_on_answer_id", using: :btree
+  add_index "answered_questions", ["response_id"], name: "index_answered_questions_on_response_id", using: :btree
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "question_id"
+    t.string   "long_answer"
+    t.boolean  "short_answer"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
+
+  create_table "questions", force: :cascade do |t|
+    t.integer  "survey_id"
+    t.string   "question"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "questions", ["survey_id"], name: "index_questions_on_survey_id", using: :btree
+
+  create_table "responses", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "survey_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "opinions", ["survey_id"], name: "index_opinions_on_survey_id", using: :btree
-  add_index "opinions", ["user_id"], name: "index_opinions_on_user_id", using: :btree
+  add_index "responses", ["survey_id"], name: "index_responses_on_survey_id", using: :btree
+  add_index "responses", ["user_id"], name: "index_responses_on_user_id", using: :btree
 
   create_table "surveys", force: :cascade do |t|
-    t.string   "subject"
-    t.string   "question"
+    t.integer  "user_id"
+    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "surveys", ["user_id"], name: "index_surveys_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -59,6 +89,11 @@ ActiveRecord::Schema.define(version: 20150730174944) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "opinions", "surveys"
-  add_foreign_key "opinions", "users"
+  add_foreign_key "answered_questions", "answers"
+  add_foreign_key "answered_questions", "responses"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "questions", "surveys"
+  add_foreign_key "responses", "surveys"
+  add_foreign_key "responses", "users"
+  add_foreign_key "surveys", "users"
 end
