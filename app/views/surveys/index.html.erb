@@ -1,0 +1,14 @@
+<h1>This are all of our surveys</h1>
+<h3>Pick one...</h3>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Question</th>
+  </tr>
+  <% @surveys.each do |s| %>
+  <tr>
+    <td><%= s.subject %></td>
+    <td><%= s.question %></td>
+  </tr>
+  <% end %>
+</table>
