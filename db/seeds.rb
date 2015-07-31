@@ -1,4 +1,4 @@
-pause = 2
+pause = 0
 
 num_of_all_users = rand(9..17)
 num_of_all_surveys = rand(15..30)

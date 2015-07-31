@@ -1,2 +1,13 @@
-<h1>Surveys#show</h1>
-<p>Find me in app/views/surveys/show.html.erb</p>
+<h1>Survey</h1>
+<h3>Title: <%= @survey.title %></h3>
+<table>
+  <tr>
+    <th>Num</th><th>Question</th>
+  </tr>
+    <% @survey.questions.each_with_index do |q,i| %>
+      <tr>
+        <td><%= (i+1).to_s %></td>
+        <td><%= q.question %>?</td>
+      </tr>
+    <% end %>
+</table>

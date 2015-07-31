@@ -3,12 +3,10 @@
 <table>
   <tr>
     <th>Title</th>
-    <th>Question</th>
   </tr>
   <% @surveys.each do |s| %>
   <tr>
-    <td><%= s.subject %></td>
-    <td><%= link_to s.question, s %></td>
+    <td><%= link_to s.title, survey_path(s) %></td>
   </tr>
   <% end %>
 </table>
