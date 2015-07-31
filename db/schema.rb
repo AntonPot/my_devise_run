@@ -19,22 +19,20 @@ ActiveRecord::Schema.define(version: 20150731081016) do
   create_table "answered_questions", force: :cascade do |t|
     t.integer  "response_id"
     t.integer  "answer_id"
+    t.integer  "question_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   add_index "answered_questions", ["answer_id"], name: "index_answered_questions_on_answer_id", using: :btree
+  add_index "answered_questions", ["question_id"], name: "index_answered_questions_on_question_id", using: :btree
   add_index "answered_questions", ["response_id"], name: "index_answered_questions_on_response_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
-    t.integer  "question_id"
-    t.string   "long_answer"
-    t.boolean  "short_answer"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.integer  "survey_id"
@@ -90,8 +88,8 @@ ActiveRecord::Schema.define(version: 20150731081016) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "answered_questions", "answers"
+  add_foreign_key "answered_questions", "questions"
   add_foreign_key "answered_questions", "responses"
-  add_foreign_key "answers", "questions"
   add_foreign_key "questions", "surveys"
   add_foreign_key "responses", "surveys"
   add_foreign_key "responses", "users"
