@@ -1,9 +1,6 @@
 num_of_all_users = rand(9..17)
 num_of_all_surveys = rand(2..7)
 
-num_of_all_questions = 30
-num_of_questions_per_survey = 1
-
 # Variables value is randomly definded
 surveys_created = 0
 
@@ -25,17 +22,24 @@ num_of_all_users.times do
 end
 
 User.all.sample(num_of_all_surveys).each do |u|
-  u.surveys.new(
-    title: Faker::Hacker.adjective,
-  )
+  u.surveys.new(title: Faker::Hacker.adjective)
   surveys_created += 1 if u.save
 end
 puts "#{surveys_created} surveys created"
+puts
 
-# Survey.all.each
+Survey.all.each do |s|
+  num_of_questions_per_survey = rand(1..8)
+  num_of_questions_per_survey.times do
+    s.questions.create(question: Faker::Hacker.say_something_smart)
+  end
+  puts "Survey with id #{s.id} has #{num_of_questions_per_survey} questions"
+end
+puts
 
+Question.all.each do |q|
 
-
+end
 
 
 # Survey.all.each do |survey|
