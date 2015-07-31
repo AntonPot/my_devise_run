@@ -4,5 +4,9 @@ class SurveysController < ApplicationController
   end
 
   def show
+    survey = Survey.find(params[:id])
+    p "$"*99
+    p survey
+    redirect_to root_path
   end
 end

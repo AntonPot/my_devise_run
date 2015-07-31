@@ -8,7 +8,7 @@
   <% @surveys.each do |s| %>
   <tr>
     <td><%= s.subject %></td>
-    <td><%= s.question %></td>
+    <td><%= link_to s.question, s %></td>
   </tr>
   <% end %>
 </table>
