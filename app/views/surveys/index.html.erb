@@ -1,5 +1,7 @@
+<h3><%= flash[:notice] %></h3>
 <% if logged_in? %>
   <h1>This are the surveys you have taken <%= current_user.first_name %></h1>
+  <%= link_to "Create new survey", new_survey_path %>
   <% current_user.responses.each do |r| %>
     <h3>Survey title: <%= r.survey.title %></h3>
     <table>
