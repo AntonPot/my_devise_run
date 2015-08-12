@@ -9,4 +9,9 @@ class SurveysController < ApplicationController
     # p @survey
     # redirect_to root_path
   end
+
+  def new
+    survey = Survey.new
+
+  end
 end
