@@ -9,7 +9,10 @@ before_filter :configure_sign_up_params, only: [:create]
 
   # POST /resource
   def create
+    p "@"*99
+    p params
     super
+    p "#"*99
   end
 
   # GET /resource/edit
@@ -36,7 +39,7 @@ before_filter :configure_sign_up_params, only: [:create]
     super
   end
 
-  # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
