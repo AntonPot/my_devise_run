@@ -7,6 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<header>
+<% if logged_in? %>
+    Hello <%= current_user.first_name %>
+    <img src="<%= current_user.image %>">
+    <%= button_to 'Log out', destroy_user_session_path, method: 'delete' %>
+  <% else %>
+    Welcome, please log in or register
+    <%= button_to 'Register', new_user_registration_path, method: 'get' %>
+    <%= button_to 'Log in', new_user_session_path, method: 'get' %>
+  <% end %>
+
+</header>
 
 <%= yield %>
 

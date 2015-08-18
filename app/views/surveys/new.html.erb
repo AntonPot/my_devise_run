@@ -1,0 +1,11 @@
+<h3><%= flash[:notice] %></h3>
+
+<h1>Surveys#new</h1>
+  <%= form_for @survey do |f|%>
+    <%= f.label 'Survey title' %>
+    <%= f.text_field :title %><br>
+    <br>
+    <%= f.submit "Next" %>
+  <% end %>
+  <br>
+<%= link_to "Back", root_path %>

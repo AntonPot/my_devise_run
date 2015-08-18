@@ -1,0 +1,34 @@
+<h3><%= flash[:notice] %></h3>
+<% if logged_in? %>
+  <h1>This are the surveys you have taken <%= current_user.first_name %></h1>
+  <%= link_to "Create new survey", new_survey_path %>
+  <% current_user.responses.each do |r| %>
+    <h3>Survey title: <%= r.survey.title %></h3>
+    <table>
+      <tr>
+        <th>Num</th><th>Question</th><th>Answer</th>
+      </tr>
+    <% r.answered_questions.each_with_index do |aq,i| %>
+      <tr>
+        <td><%= (i+1).to_s %></td>
+        <td><%= aq.question.question %>?</td>
+        <td><%= aq.answer.answer %></td>
+      </tr>
+    <% end %>
+    </table>
+  <% end %>
+<% else %>
+
+  <h1>This are all of our surveys</h1>
+  <h3>Pick one...</h3>
+  <table>
+    <tr>
+      <th>Title</th>
+    </tr>
+    <% @surveys.each do |s| %>
+    <tr>
+      <td><%= link_to s.title, survey_path(s) %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
